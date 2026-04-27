@@ -78,7 +78,8 @@
                     <!-- Dashboard Grid -->
                     <div class="dashboard-grid">
                         <!-- Project Progress -->
-                        <section class="card progress-card glass-panel col-span-2 fade-in">
+                        <section id="project-progress-card" class="card progress-card glass-panel col-span-2 fade-in"
+                            style="cursor: pointer; transition: transform 0.2s;">
                             <div class="card-header">
                                 <h2>Progreso del Proyecto Actual</h2>
                                 <span class="status-tag">En curso</span>
@@ -164,7 +165,11 @@
                                 <h1 id="profile-name" class="gradient-text"
                                     style="font-size: 2.5rem; margin-bottom: 0.2rem;">Usuario</h1>
                                 <span class="user-code" id="profile-code"
-                                    style="color: var(--text-muted); font-weight: 600; font-family: monospace; font-size: 1.1rem;">#VB-0000</span>
+                                    style="color: var(--text-muted); font-weight: 600; font-family: monospace; font-size: 1.1rem; margin-right: 1rem;">#VB-0000</span>
+                                <span style="color: var(--text-muted); font-size: 0.95rem;"><i
+                                        class="fa-solid fa-users"></i> Equipo: <strong id="profile-team"
+                                        style="color: white;">...</strong> | Grupo: <strong id="profile-group"
+                                        style="color: white;">...</strong></span>
                                 <div class="profile-stats-row"
                                     style="display: flex; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap;">
                                     <div class="stat-badge"
@@ -203,6 +208,63 @@
                 </div>
 
                 <!-- Placeholder Views for navigation -->
+                <div id="project-view" class="view-hidden">
+                    <div class="view-header"
+                        style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                        <button id="back-from-project-btn" class="btn-primary" style="padding: 0.5rem 1rem;"><i
+                                class="fa-solid fa-arrow-left"></i> Volver</button>
+                        <h2 id="project-view-name">Progreso del Proyecto</h2>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <section class="card glass-panel col-span-2 slide-up">
+                            <div class="card-header">
+                                <h2>Progreso General</h2>
+                                <span id="project-view-percentage" class="percentage-text"
+                                    style="font-size: 1.5rem;">0%</span>
+                            </div>
+                            <div class="progress-bar-bg" style="height: 20px; border-radius: 20px; margin-top: 1rem;">
+                                <div class="progress-bar-fill glow-effect" id="project-view-bar"
+                                    style="width: 0%; border-radius: 20px;"></div>
+                            </div>
+
+                            <div class="card-header" style="margin-top: 3rem;">
+                                <h2>Progreso por Equipo</h2>
+                            </div>
+                            <div class="chart-container" style="position: relative; height: 300px; width: 100%;">
+                                <canvas id="teamProgressChart"></canvas>
+                            </div>
+                        </section>
+
+                        <section class="card glass-panel slide-up" style="animation-delay: 0.1s;">
+                            <div class="card-header">
+                                <h2>Calendario y Fechas</h2>
+                            </div>
+                            <div class="calendar-placeholder" style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div
+                                    style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 12px; text-align: center;">
+                                    <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">28</div>
+                                    <div
+                                        style="color: var(--text-muted); text-transform: uppercase; font-size: 0.8rem;">
+                                        Octubre</div>
+                                </div>
+                                <div class="list-item"
+                                    style="flex-direction: column; align-items: flex-start; padding: 1rem;">
+                                    <h4 style="color: var(--accent); margin-bottom: 0.3rem;">Entrega Alpha</h4>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);"><i
+                                            class="fa-regular fa-clock"></i> Faltan 2 días</p>
+                                </div>
+                                <div class="list-item"
+                                    style="flex-direction: column; align-items: flex-start; padding: 1rem;">
+                                    <h4 style="color: #fbbf24; margin-bottom: 0.3rem;">Revisión QA</h4>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);"><i
+                                            class="fa-regular fa-clock"></i> 5 Noviembre</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
                 <div id="tasks-view" class="view-hidden">
                     <div class="view-header">
                         <h2>Tareas</h2>
