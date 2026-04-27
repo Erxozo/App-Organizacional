@@ -5,6 +5,8 @@ export const userData = {
     notifications: 3,
     level: 12,
     code: '#VB-4921',
+    team: 'Frontend Avengers',
+    group: 'Desarrollo Core',
     points: 1950,
     skills: {
         'Liderazgo': 85,
@@ -17,7 +19,13 @@ export const userData = {
 
 export const projectData = {
     name: 'Plataforma de E-Learning v2.0',
-    progress: 75 // percentage
+    progress: 75, // percentage
+    teamsProgress: [
+        { team: 'Frontend Avengers', progress: 85 },
+        { team: 'Backend Ninjas', progress: 60 },
+        { team: 'UI/UX Designers', progress: 95 },
+        { team: 'QA Testers', progress: 40 }
+    ]
 };
 
 export const rankingData = [
