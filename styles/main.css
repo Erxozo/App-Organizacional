@@ -272,6 +272,8 @@ h4,
     padding: 1rem;
     border-radius: 16px;
     z-index: 1000;
+    background-color: rgba(15, 17, 26, 0.95) !important;
+    backdrop-filter: blur(24px) !important;
 }
 
 .dropdown-content.show {
