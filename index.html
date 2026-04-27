@@ -170,74 +170,32 @@
                                     <div class="stat-badge"
                                         style="background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 12px; font-weight: 600;">
                                         <i class="fa-solid fa-star text-gold" style="color: #fbbf24;"></i> <span
-                                            id="profile-points">0</span> Puntos</div>
+                                            id="profile-points">0</span> Puntos
+                                    </div>
                                     <div class="stat-badge"
                                         style="background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 12px; font-weight: 600;">
                                         <i class="fa-solid fa-trophy" style="color: var(--primary);"></i> <span
-                                            id="profile-ranking-pos">#--</span> Global</div>
+                                            id="profile-ranking-pos">#--</span> Global
+                                    </div>
                                     <div class="stat-badge"
                                         style="background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 12px; font-weight: 600;">
                                         <i class="fa-solid fa-bell text-accent" style="color: var(--accent);"></i> <span
-                                            id="profile-notifs">0</span> Notificaciones</div>
+                                            id="profile-notifs">0</span> Notificaciones
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
-
-                        <!-- Profile Settings -->
-                        <section class="card glass-panel profile-settings slide-up">
-                            <div class="card-header">
-                                <h2>Configuración de Perfil</h2>
-                            </div>
-                            <div class="settings-form"
-                                style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;">
-                                <div style="flex-grow: 1; min-width: 200px;">
-                                    <label
-                                        style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Nombre
-                                        de Usuario</label>
-                                    <input type="text" id="edit-username" class="form-input"
-                                        style="width: 100%; padding: 0.8rem; border-radius: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white;"
-                                        value="">
-                                </div>
-                                <button id="change-photo-btn" class="btn-primary"
-                                    style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--glass-border);"><i
-                                        class="fa-solid fa-camera"></i> Cambiar Foto</button>
-                                <button id="save-profile-btn" class="btn-primary"><i
-                                        class="fa-solid fa-floppy-disk"></i> Guardar Cambios</button>
                             </div>
                         </section>
 
                         <!-- Grid Section -->
                         <div class="dashboard-grid">
                             <!-- Radar Chart -->
-                            <section class="card glass-panel col-span-2 slide-up">
+                            <section class="card glass-panel slide-up" style="grid-column: 1 / -1;">
                                 <div class="card-header">
                                     <h2>Atributos y Habilidades</h2>
                                 </div>
                                 <div class="chart-container"
                                     style="position: relative; height: 350px; width: 100%; display: flex; justify-content: center;">
                                     <canvas id="skillsChart"></canvas>
-                                </div>
-                            </section>
-
-                            <!-- Summary Menu -->
-                            <section class="card glass-panel slide-up" style="animation-delay: 0.1s;">
-                                <div class="card-header">
-                                    <h2>Accesos Rápidos</h2>
-                                </div>
-                                <div class="quick-access-menu"
-                                    style="display: flex; flex-direction: column; gap: 0.5rem;">
-                                    <div class="list-item"><i class="fa-solid fa-gift"
-                                            style="color: #fbbf24; font-size: 1.2rem; width: 30px;"></i>
-                                        <h4>Recompensas</h4>
-                                    </div>
-                                    <div class="list-item"><i class="fa-solid fa-list-check"
-                                            style="color: var(--accent); font-size: 1.2rem; width: 30px;"></i>
-                                        <h4>Mis Tareas</h4>
-                                    </div>
-                                    <div class="list-item"><i class="fa-solid fa-trophy"
-                                            style="color: var(--primary); font-size: 1.2rem; width: 30px;"></i>
-                                        <h4>Ranking Global</h4>
-                                    </div>
                                 </div>
                             </section>
                         </div>
@@ -270,9 +228,52 @@
                     </div>
                 </div>
                 <div id="settings-view" class="view-hidden">
-                    <div class="view-header">
+                    <div class="view-header" style="margin-bottom: 1.5rem;">
                         <h2>Configuración</h2>
-                        <p>Pantalla en construcción...</p>
+                    </div>
+
+                    <div class="settings-container" style="max-width: 800px;">
+                        <!-- Perfil desplegable -->
+                        <details class="glass-panel"
+                            style="padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem; background: rgba(255,255,255,0.05);"
+                            open>
+                            <summary
+                                style="font-size: 1.2rem; font-weight: 600; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; list-style: none;">
+                                Perfil de Usuario
+                                <i class="fa-solid fa-chevron-down"
+                                    style="font-size: 1rem; color: var(--text-muted);"></i>
+                            </summary>
+                            <div class="settings-form"
+                                style="display: flex; gap: 1.5rem; align-items: flex-end; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--glass-border);">
+                                <div style="flex-grow: 1; min-width: 250px;">
+                                    <label
+                                        style="display: block; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.5rem;">Nombre
+                                        de Usuario</label>
+                                    <input type="text" id="edit-username" class="form-input"
+                                        style="width: 100%; padding: 0.8rem 1rem; border-radius: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); color: white; font-family: 'Inter', sans-serif;"
+                                        value="">
+                                </div>
+                                <button id="change-photo-btn" class="btn-primary"
+                                    style="background: transparent; color: var(--text-main); border: 1px solid var(--glass-border);"><i
+                                        class="fa-solid fa-camera"></i> Cambiar Foto</button>
+                                <button id="save-profile-btn" class="btn-primary"><i
+                                        class="fa-solid fa-floppy-disk"></i> Guardar Cambios</button>
+                            </div>
+                        </details>
+
+                        <!-- Otras configuraciones (Placeholder) -->
+                        <details class="glass-panel"
+                            style="padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem; background: rgba(255,255,255,0.05);">
+                            <summary
+                                style="font-size: 1.2rem; font-weight: 600; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; list-style: none;">
+                                Notificaciones
+                                <i class="fa-solid fa-chevron-down"
+                                    style="font-size: 1rem; color: var(--text-muted);"></i>
+                            </summary>
+                            <p
+                                style="margin-top: 1.5rem; color: var(--text-muted); padding-top: 1rem; border-top: 1px solid var(--glass-border);">
+                                Configuración de notificaciones en construcción...</p>
+                        </details>
                     </div>
                 </div>
 
