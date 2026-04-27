@@ -22,8 +22,17 @@ const elements = {
     profilePoints: document.getElementById('profile-points'),
     profileNotifs: document.getElementById('profile-notifs'),
     profileRankingPos: document.getElementById('profile-ranking-pos'),
+    profileTeam: document.getElementById('profile-team'),
+    profileGroup: document.getElementById('profile-group'),
     editUsernameInput: document.getElementById('edit-username'),
     saveProfileBtn: document.getElementById('save-profile-btn'),
+
+    // Project View elements
+    projectProgressCard: document.getElementById('project-progress-card'),
+    projectView: document.getElementById('project-view'),
+    backFromProjectBtn: document.getElementById('back-from-project-btn'),
+    projectViewPercentage: document.getElementById('project-view-percentage'),
+    projectViewBar: document.getElementById('project-view-bar'),
 
     // Top Bar Menu
     menuToggleBtn: document.getElementById('menu-toggle-btn'),
@@ -64,6 +73,8 @@ const setupProfileView = () => {
     // Load User Data into Profile
     elements.profileName.textContent = userData.username;
     elements.profileCode.textContent = userData.code;
+    if (elements.profileTeam) elements.profileTeam.textContent = userData.team || 'Sin equipo';
+    if (elements.profileGroup) elements.profileGroup.textContent = userData.group || 'Sin grupo';
     elements.profilePoints.textContent = userData.points;
     elements.profileNotifs.textContent = userData.notifications;
 
@@ -119,6 +130,53 @@ const initChart = () => {
                         min: 0,
                         max: 100
                     }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+};
+
+let teamChartInstance = null;
+const initTeamChart = () => {
+    const ctx = document.getElementById('teamProgressChart');
+    if (!ctx) return;
+
+    if (teamChartInstance) {
+        teamChartInstance.destroy();
+    }
+
+    const labels = projectData.teamsProgress.map(t => t.team);
+    const data = projectData.teamsProgress.map(t => t.progress);
+
+    teamChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Progreso (%)',
+                data: data,
+                backgroundColor: 'rgba(6, 182, 212, 0.6)',
+                borderColor: 'rgba(6, 182, 212, 1)',
+                borderWidth: 1,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    ticks: { color: 'rgba(248, 250, 252, 0.7)' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: 'rgba(248, 250, 252, 0.9)' }
                 }
             },
             plugins: {
@@ -229,6 +287,37 @@ const setupInteractions = () => {
                 elements.usernameDisplay.textContent = newName;
                 alert("Perfil guardado con éxito.");
             }
+        });
+    }
+
+    // Project Progress View Switching
+    if (elements.projectProgressCard && elements.projectView) {
+        elements.projectProgressCard.addEventListener('click', () => {
+            // Hide all views
+            document.querySelectorAll('#views-container > div').forEach(view => {
+                view.classList.remove('view-active');
+                view.classList.add('view-hidden');
+            });
+            // Show project view
+            elements.projectView.classList.remove('view-hidden');
+            elements.projectView.classList.add('view-active');
+
+            // Animate view elements
+            setTimeout(() => {
+                if (elements.projectViewBar) elements.projectViewBar.style.width = `${projectData.progress}%`;
+                if (elements.projectViewPercentage) animateValue(elements.projectViewPercentage, 0, projectData.progress, 1500);
+                initTeamChart();
+            }, 50);
+        });
+    }
+
+    if (elements.backFromProjectBtn) {
+        elements.backFromProjectBtn.addEventListener('click', () => {
+            elements.projectView.classList.remove('view-active');
+            elements.projectView.classList.add('view-hidden');
+            // Show main view
+            elements.mainView.classList.remove('view-hidden');
+            elements.mainView.classList.add('view-active');
         });
     }
 };
