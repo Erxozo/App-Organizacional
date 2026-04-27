@@ -1,0 +1,6 @@
+index.html - Define únicamente la estructura semántica.
+styles/main.css - Contiene las variables de diseño base, colores y layout general.
+styles/components.css - Estilos específicos para tarjetas, animaciones y botones.
+js/data.js - Actúa como un almacén de datos modular (Mock) con la información del ranking, tareas, y usuario.
+js/components.js - Funciones puras encargadas de generar la estructura visual (HTML) de los elementos a partir de los datos.
+js/app.js - El controlador principal que inicializa la app, inyecta los datos en el DOM y gestiona las interacciones.

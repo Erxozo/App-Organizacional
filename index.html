@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrgManager - Dashboard Principal</title>
+    <meta name="description" content="Dashboard principal para gestión de organizaciones y actividades de integrantes.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- Background Animated blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <!-- Fixed Top App Bar -->
+    <nav class="top-nav-bar glass-panel"
+        style="position: fixed; top: 1rem; left: 1rem; right: 1rem; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 1.5rem; z-index: 1000; border-radius: 20px;">
+        <div class="nav-left" style="display: flex; align-items: center; gap: 1rem;">
+            <button id="menu-toggle-btn" class="btn-icon" style="font-size: 1.5rem;"><i
+                    class="fa-solid fa-bars"></i></button>
+            <div class="logo" style="margin-bottom: 0;">
+                <div class="logo-icon" style="width: 32px; height: 32px;"><i class="fa-solid fa-layer-group"
+                        style="font-size: 1rem;"></i></div>
+                <span class="logo-text" style="font-size: 1.2rem;">OrgManager</span>
+            </div>
+        </div>
+        <div class="nav-right" style="display: flex; align-items: center; gap: 1.5rem;">
+            <div class="icon-btn notification-btn">
+                <i class="fa-regular fa-bell"></i>
+                <span class="badge" id="notif-count">3</span>
+            </div>
+            <div class="user-profile">
+                <img id="profile-img" src="./assets/user_avatar.png" alt="Imagen de perfil" class="avatar"
+                    style="width: 40px; height: 40px;">
+            </div>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div id="dropdown-menu" class="dropdown-content glass-panel">
+            <a href="#" class="nav-item active" data-view="main-view"><i class="fa-solid fa-house"></i>
+                <span>Inicio</span></a>
+            <a href="#" class="nav-item" data-view="tasks-view"><i class="fa-solid fa-list-check"></i>
+                <span>Tareas</span></a>
+            <a href="#" class="nav-item" data-view="ranking-view"><i class="fa-solid fa-trophy"></i>
+                <span>Ranking</span></a>
+            <a href="#" class="nav-item" data-view="rewards-view"><i class="fa-solid fa-gift"></i>
+                <span>Recompensas</span></a>
+            <a href="#" class="nav-item" data-view="team-view"><i class="fa-solid fa-users"></i> <span>Equipo</span></a>
+            <div style="height: 1px; background: var(--glass-border); margin: 0.5rem 0;"></div>
+            <a href="#" class="nav-item" data-view="settings-view"><i class="fa-solid fa-gear"></i>
+                <span>Configuración</span></a>
+        </div>
+    </nav>
+
+    <div class="app-container" style="padding-top: 100px; max-width: 1200px;">
+        <!-- Main Content -->
+        <main class="main-content" style="padding-right: 0;">
+            <!-- Header -->
+            <header class="top-header glass-panel" style="margin-bottom: 1.5rem;">
+                <div class="header-left">
+                    <h1>Hola, <span id="username-display" class="gradient-text">Usuario</span> 👋</h1>
+                    <p>Aquí tienes el resumen de tus actividades de hoy.</p>
+                </div>
+            </header>
+
+            <!-- Views Container -->
+            <div id="views-container">
+                <!-- Main Dashboard View -->
+                <div id="main-view" class="view-active">
+                    <!-- Dashboard Grid -->
+                    <div class="dashboard-grid">
+                        <!-- Project Progress -->
+                        <section class="card progress-card glass-panel col-span-2 fade-in">
+                            <div class="card-header">
+                                <h2>Progreso del Proyecto Actual</h2>
+                                <span class="status-tag">En curso</span>
+                            </div>
+                            <div class="project-details">
+                                <div class="project-icon">
+                                    <i class="fa-solid fa-rocket"></i>
+                                </div>
+                                <div class="project-info">
+                                    <h3 id="current-project-name">Plataforma de E-Learning v2.0</h3>
+                                    <p>Fase de desarrollo frontend e integración.</p>
+                                </div>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-text">
+                                    <span>Progreso General</span>
+                                    <span id="progress-percentage" class="percentage-text">0%</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill glow-effect" id="main-progress-bar" style="width: 0%">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Rewards -->
+                        <section class="card rewards-card glass-panel slide-up" style="animation-delay: 0.1s;">
+                            <div class="card-header">
+                                <h2>Recompensas Disponibles</h2>
+                                <button class="btn-icon"><i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                            <div class="rewards-content">
+                                <div class="reward-image-container">
+                                    <img id="reward-img" src="./assets/reward_badge.png" alt="Última recompensa"
+                                        class="reward-icon floating">
+                                </div>
+                                <div class="reward-info">
+                                    <h4>Maestro del Código</h4>
+                                    <p>Completaste 50 tareas complejas.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Ranking -->
+                        <section class="card ranking-card glass-panel slide-up" style="animation-delay: 0.2s;">
+                            <div class="card-header">
+                                <h2>Top Ranking</h2>
+                                <button class="btn-icon"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                            </div>
+                            <div class="ranking-list" id="ranking-list">
+                                <!-- Inyectado por JS -->
+                            </div>
+                        </section>
+
+                        <!-- Tasks -->
+                        <section class="card tasks-card glass-panel col-span-2 slide-up" style="animation-delay: 0.3s;">
+                            <div class="card-header">
+                                <h2>Tareas Activas</h2>
+                                <button class="btn-primary"><i class="fa-solid fa-plus"></i> Añadir Tarea</button>
+                            </div>
+                            <div class="task-list" id="task-list">
+                                <!-- Inyectado por JS -->
+                            </div>
+                    </div>
+                </div>
+
+                <!-- Profile View -->
+                <div id="profile-view" class="view-hidden">
+                    <div class="view-header"
+                        style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                        <button id="back-to-main-btn" class="btn-primary" style="padding: 0.5rem 1rem;"><i
+                                class="fa-solid fa-arrow-left"></i> Volver</button>
+                        <h2>Perfil de Jugador</h2>
+                    </div>
+
+                    <div class="profile-dashboard" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <!-- Top Section: User Info -->
+                        <section class="card glass-panel profile-hero fade-in"
+                            style="flex-direction: row; align-items: center; gap: 2rem;">
+                            <img src="./assets/user_avatar.png" alt="Avatar grande" class="avatar"
+                                style="width: 100px; height: 100px; border-width: 3px;">
+                            <div class="profile-details" style="flex-grow: 1;">
+                                <h1 id="profile-name" class="gradient-text"
+                                    style="font-size: 2.5rem; margin-bottom: 0.2rem;">Usuario</h1>
+                                <span class="user-code" id="profile-code"
+                                    style="color: var(--text-muted); font-weight: 600; font-family: monospace; font-size: 1.1rem;">#VB-0000</span>
+                                <div class="profile-stats-row"
+                                    style="display: flex; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap;">
+                                    <div class="stat-badge"
+                                        style="background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 12px; font-weight: 600;">
+                                        <i class="fa-solid fa-star text-gold" style="color: #fbbf24;"></i> <span
+                                            id="profile-points">0</span> Puntos</div>
+                                    <div class="stat-badge"
+                                        style="background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 12px; font-weight: 600;">
+                                        <i class="fa-solid fa-trophy" style="color: var(--primary);"></i> <span
+                                            id="profile-ranking-pos">#--</span> Global</div>
+                                    <div class="stat-badge"
+                                        style="background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 12px; font-weight: 600;">
+                                        <i class="fa-solid fa-bell text-accent" style="color: var(--accent);"></i> <span
+                                            id="profile-notifs">0</span> Notificaciones</div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Profile Settings -->
+                        <section class="card glass-panel profile-settings slide-up">
+                            <div class="card-header">
+                                <h2>Configuración de Perfil</h2>
+                            </div>
+                            <div class="settings-form"
+                                style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;">
+                                <div style="flex-grow: 1; min-width: 200px;">
+                                    <label
+                                        style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Nombre
+                                        de Usuario</label>
+                                    <input type="text" id="edit-username" class="form-input"
+                                        style="width: 100%; padding: 0.8rem; border-radius: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white;"
+                                        value="">
+                                </div>
+                                <button id="change-photo-btn" class="btn-primary"
+                                    style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--glass-border);"><i
+                                        class="fa-solid fa-camera"></i> Cambiar Foto</button>
+                                <button id="save-profile-btn" class="btn-primary"><i
+                                        class="fa-solid fa-floppy-disk"></i> Guardar Cambios</button>
+                            </div>
+                        </section>
+
+                        <!-- Grid Section -->
+                        <div class="dashboard-grid">
+                            <!-- Radar Chart -->
+                            <section class="card glass-panel col-span-2 slide-up">
+                                <div class="card-header">
+                                    <h2>Atributos y Habilidades</h2>
+                                </div>
+                                <div class="chart-container"
+                                    style="position: relative; height: 350px; width: 100%; display: flex; justify-content: center;">
+                                    <canvas id="skillsChart"></canvas>
+                                </div>
+                            </section>
+
+                            <!-- Summary Menu -->
+                            <section class="card glass-panel slide-up" style="animation-delay: 0.1s;">
+                                <div class="card-header">
+                                    <h2>Accesos Rápidos</h2>
+                                </div>
+                                <div class="quick-access-menu"
+                                    style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <div class="list-item"><i class="fa-solid fa-gift"
+                                            style="color: #fbbf24; font-size: 1.2rem; width: 30px;"></i>
+                                        <h4>Recompensas</h4>
+                                    </div>
+                                    <div class="list-item"><i class="fa-solid fa-list-check"
+                                            style="color: var(--accent); font-size: 1.2rem; width: 30px;"></i>
+                                        <h4>Mis Tareas</h4>
+                                    </div>
+                                    <div class="list-item"><i class="fa-solid fa-trophy"
+                                            style="color: var(--primary); font-size: 1.2rem; width: 30px;"></i>
+                                        <h4>Ranking Global</h4>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder Views for navigation -->
+                <div id="tasks-view" class="view-hidden">
+                    <div class="view-header">
+                        <h2>Tareas</h2>
+                        <p>Pantalla en construcción...</p>
+                    </div>
+                </div>
+                <div id="ranking-view" class="view-hidden">
+                    <div class="view-header">
+                        <h2>Ranking</h2>
+                        <p>Pantalla en construcción...</p>
+                    </div>
+                </div>
+                <div id="rewards-view" class="view-hidden">
+                    <div class="view-header">
+                        <h2>Recompensas</h2>
+                        <p>Pantalla en construcción...</p>
+                    </div>
+                </div>
+                <div id="team-view" class="view-hidden">
+                    <div class="view-header">
+                        <h2>Equipo</h2>
+                        <p>Pantalla en construcción...</p>
+                    </div>
+                </div>
+                <div id="settings-view" class="view-hidden">
+                    <div class="view-header">
+                        <h2>Configuración</h2>
+                        <p>Pantalla en construcción...</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Script modules -->
+    <script type="module" src="./js/app.js"></script>
+</body>
+
+</html>
